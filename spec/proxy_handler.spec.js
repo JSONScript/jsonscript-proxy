@@ -205,7 +205,7 @@ describe('jsonscript proxy handler', function() {
   });
 
   describe('error handling', function() {
-    it('should return error if script is invalid', function() {
+    it('should return error if script is invalid', function (done) {
       send({
         script: {
           $exec: 'service1',
@@ -216,7 +216,7 @@ describe('jsonscript proxy handler', function() {
           $wrongProperty: true
         }
       }, function (err, resp) {
-        assert(!!err);
+        assert.equal(err.message, 'expected 200 "OK", got 400 "Bad Request"');
         assert.equal(resp.statusCode, 400);
         assert.equal(resp.body.error, 'script is invalid');
         done();
@@ -291,6 +291,23 @@ describe('jsonscript proxy handler', function() {
           }
         }, function (err, resp) {
           assert.deepEqual(resp.body, {
+            name: 'object',
+            id: 1,
+            service: 'service1',
+            info: 'resource object id 1'
+          });
+          done();
+        });
+      });
+
+      it('should return error if statusCode is >= 300', function (done) {
+        send({
+          script: {
+            '$$service1.get': { path: '/object/1/error' }
+          }
+        }, function (err, resp) {
+          assert.equal(err.message, 'expected 200 "OK", got 500 "Internal Server Error"');
+          assert.deepEqual(JSON.parse(resp.body.error), {
             name: 'object',
             id: 1,
             service: 'service1',

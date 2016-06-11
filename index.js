@@ -66,7 +66,8 @@ function jsonscriptProxy(options) {
       return new (options.Promise || Promise)(function (resolve, reject) {
         request[args.method](opts, function (err, resp) {
           if (err) return reject(err);
-          resolve(processResponse(resp, args));
+          try { resolve(processResponse(resp, args)); }
+          catch(e) { reject(e); }
         });
       });
     }

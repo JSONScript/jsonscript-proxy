@@ -11,13 +11,16 @@ module.exports = function startService(serviceName, port) {
   app.use(bodyParser.json());
 
   app.get('/api/:name/:id', function (req, res) {
-    var id = req.params.id;
-    send(res, req.params.name, id);
+    send(res, req.params.name, req.params.id);
   });
 
   app.post('/api/:name', function (req, res) {
     var id = Date.now();
     send(res, req.params.name, id, req.body);
+  });
+
+  app.get('/api/:name/:id/error', function (req, res) {
+    send(res.status(500), req.params.name, req.params.id);
   });
 
 
