@@ -2,6 +2,11 @@
 
 Proxy server for batch processing of other services using [JSONScript](https://github.com/JSONScript/jsonscript).
 
+[![Build Status](https://travis-ci.org/JSONScript/jsonscript-proxy.svg?branch=master)](https://travis-ci.org/JSONScript/jsonscript-proxy)
+[![npm version](https://badge.fury.io/js/jsonscript-proxy.svg)](https://www.npmjs.com/package/jsonscript-proxy)
+[![Code Climate](https://codeclimate.com/github/JSONScript/jsonscript-proxy/badges/gpa.svg)](https://codeclimate.com/github/JSONScript/jsonscript-proxy)
+[![Coverage Status](https://coveralls.io/repos/github/JSONScript/jsonscript-proxy/badge.svg?branch=master)](https://coveralls.io/github/JSONScript/jsonscript-proxy?branch=master)
+
 
 ## Install
 
