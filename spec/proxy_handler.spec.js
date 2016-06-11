@@ -204,6 +204,26 @@ describe('jsonscript proxy handler', function() {
     });
   });
 
+  describe('error handling', function() {
+    it('should return error if script is invalid', function() {
+      send({
+        script: {
+          $exec: 'service1',
+          $args: {
+            method: 'get',
+            path: '/object/1'
+          },
+          $wrongProperty: true
+        }
+      }, function (err, resp) {
+        assert(!!err);
+        assert.equal(resp.statusCode, 400);
+        assert.equal(resp.body.error, 'script is invalid');
+        done();
+      });
+    });
+  });
+
   describe('sequential evaluation', function() {
     it('should process GET and then POST', function (done) {
       send({
@@ -247,6 +267,14 @@ describe('jsonscript proxy handler', function() {
 
 
   describe('options', function() {
+    describe('options validation', function() {
+      it('should throw if options are invalid', function() {
+        assert.throws(function() {
+          var proxy = createProxy({}); // "services" is required property
+        });
+      });
+    });
+
     describe('processResponse: "body"', function() {
       beforeEach(function() {
         proxy = createProxy({ services: SERVICES, processResponse: 'body' });
