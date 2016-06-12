@@ -20,7 +20,8 @@
       "description": "options passed to JSONScript interpreter",
       "type": "object"
     },
-    "processResponse": { "$ref": "#/definitions/processResponse" }
+    "processResponse": { "$ref": "#/definitions/processResponse" },
+    "Promise": { "typeof": "function" }
   },
   "definitions": {
     "service": {

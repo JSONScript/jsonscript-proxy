@@ -12,13 +12,13 @@ module.exports = jsonscriptProxy;
 
 
 var METHODS = ['get', 'post', 'put', 'delete'];
-function jsonscriptProxy(options) {
+function jsonscriptProxy(options, js) {
   if (!validateOptions(options)) {
     console.log('Invalid options:\n', validateOptions.errors);
     throw new Error('Invalid options');
   }
 
-  var js = JSONScript(options.jsonscript || { strict: true });
+  js = js || new JSONScript(options.jsonscript || { strict: true });
   for (var key in options.services)
     js.addExecutor(key, getExecutor(options.services[key]));
   evaluator.js = js;

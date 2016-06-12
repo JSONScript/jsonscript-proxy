@@ -97,6 +97,70 @@ JSONScript also supports sequential evaluation, conditionals, data manipulation,
 See [JSONScript Language](https://github.com/JSONScript/jsonscript/blob/master/LANGUAGE.md) for more information.
 
 
+## API
+
+##### jsonscriptProxy(Object options [, Object js]) -&gt; Function
+
+Create express route handling function to process JSONScript. The second optional parameter is the existing instance of JSONScript interpreter, if it is not passed a new one will be created.
+
+Both the `script` and the `data` instance should be properties of the request body:
+
+```javascript
+{
+  "script": {
+    // JSONScript, can be an array
+  },
+  "data": {
+    // data instance that can be used from the script,
+    // can be array
+  }
+}
+```
+
+
+## Options
+
+See [options schema](https://github.com/JSONScript/jsonscript-proxy/blob/master/config_schema.json).
+
+Defaults:
+
+```javascript
+{
+  services: {}, // must be specified and have at least one property
+  processResponse: undefined,
+  jsonscript: { strict: true },
+  Promise: undefined
+}
+```
+
+- _services_: the required map of service definitions that are exposed to JSONScript as executors. Each property name will be used as an executor map. See [Service definitions](#service-definitions).
+- _processResponse_: the default response processing function, can be overridden for a particular service. The possible values:
+  - `"body"` - return only response body if status code is < 300, throw an exception otherwise.
+  - function - custom function to process the response object, can throw an exception or return the object to be used as the result.
+- _jsonscript_: options passed to JSONScript interpreter [jsonscript-js](https://github.com/JSONScript/jsonscript-js).
+- _Promise_: an optional Promise class, the native Promise is used by default.
+
+
+## Service definitions
+
+`services` properties in options object should contain a map of services:
+
+```javascript
+{
+  service1: {
+    basePath: '...',
+    processResponce: undefined
+  },
+  service2: {
+    // ...
+  },
+  // ...
+}
+```
+
+`basePath` will be prepended for the path in the call to the service, `processResponse`, if specified, will be used to process responses from the service.
+
+
 ## License
 
 [MIT](https://github.com/JSONScript/jsonscript-proxy/blob/master/LICENSE)
