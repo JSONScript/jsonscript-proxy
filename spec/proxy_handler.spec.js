@@ -1,9 +1,9 @@
 'use strict';
 
-var test = require('supertest');
-var createProxy = require('./proxy');
-var startService = require('./service');
-var assert = require('assert');
+var createProxy = require('./proxy')
+  , startService = require('./service')
+  , test = require('supertest')
+  , assert = require('assert');
 
 var SERVICES = {
   service1: {
@@ -15,12 +15,12 @@ var SERVICES = {
 };
 
 describe('jsonscript proxy handler', function() {
-  var proxy, service1, service2;
+  var proxy;
 
   before(function (done) {
-    service1 = startService('service1', 3001);
-    service2 = startService('service2', 3002);
-    setTimeout(done, 1000);
+    startService('service1', 3001);
+    startService('service2', 3002);
+    setTimeout(done, 500);
   });
 
   beforeEach(function() {
@@ -270,7 +270,7 @@ describe('jsonscript proxy handler', function() {
     describe('options validation', function() {
       it('should throw if options are invalid', function() {
         assert.throws(function() {
-          var proxy = createProxy({}); // "services" is required property
+          proxy = createProxy({}); // "services" is required property
         });
       });
     });

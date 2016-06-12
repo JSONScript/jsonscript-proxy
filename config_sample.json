@@ -1,0 +1,11 @@
+{
+  "services": {
+    "service1": {
+      "basePath": "http://localhost:3001"
+    },
+    "service2": {
+      "basePath": "http://localhost:3002"
+    }
+  },
+  "processResponse": "body"
+}

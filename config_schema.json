@@ -21,7 +21,10 @@
       "type": "object"
     },
     "processResponse": { "$ref": "#/definitions/processResponse" },
-    "Promise": { "typeof": "function" }
+    "Promise": {
+      "description": "Promise class to use, will be ignored if used from command line",
+      "typeof": "function"
+    }
   },
   "definitions": {
     "service": {

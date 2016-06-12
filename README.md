@@ -10,7 +10,7 @@ Proxy server for batch processing of other services using [JSONScript](https://g
 
 ## Install
 
-To run proxy server using configuration file (not implemented yet):
+To run proxy server from command line using configuration file:
 
 ```
 npm install -g jsonscript-proxy
@@ -23,7 +23,21 @@ npm install jsonscript-proxy
 ```
 
 
-## Getting started
+## Using from command line
+
+```
+jsproxy config.json
+```
+
+The parameter passed to proxy cli is the name of the config file that should be valid according to the [config schema](https://github.com/JSONScript/jsonscript-proxy/blob/master/config_schema.json). See [sample config file](https://github.com/JSONScript/jsonscript-proxy/blob/master/config_sample.json).
+
+Options:
+
+- -p or --port: the port proxy will listen to, `3000` by default
+- -a or --api: the path proxy will receive POST requests on, `/js` by default
+
+
+## Using proxy as a middleware
 
 Sample proxy:
 
@@ -141,7 +155,7 @@ Defaults:
 - _Promise_: an optional Promise class, the native Promise is used by default.
 
 
-## Service definitions
+#### Service definitions
 
 `services` properties in options object should contain a map of services:
 

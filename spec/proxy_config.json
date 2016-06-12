@@ -1,0 +1,10 @@
+{
+  "services": {
+    "service1": {
+      "basePath": "http://localhost:3003/api"
+    },
+    "service2": {
+      "basePath": "http://localhost:3004/api"
+    }
+  }
+}
