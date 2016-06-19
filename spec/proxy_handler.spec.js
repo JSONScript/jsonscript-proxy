@@ -333,6 +333,7 @@ describe('jsonscript proxy handler', function() {
 function assertGetResult(result, serviceName, name, id) {
   assert.equal(result.statusCode, 200);
   assert.equal(typeof result.headers, 'object');
+  assert.deepEqual(result.service, { name: serviceName, basePath: SERVICES[serviceName].basePath });
   assert.deepEqual(result.request, { method: 'get', path: '/' + name + '/' + id })
   assert.deepEqual(result.body, {
     name: name,
@@ -346,6 +347,7 @@ function assertGetResult(result, serviceName, name, id) {
 function assertPostResult(result, serviceName, name, data) {
   assert.equal(result.statusCode, 200);
   assert.equal(typeof result.headers, 'object');
+  assert.deepEqual(result.service, { name: serviceName, basePath: SERVICES[serviceName].basePath });
   assert.deepEqual(result.request, { method: 'post', path: '/' + name, body: data })
   assert.equal(result.body.name, name);
   var id = result.body.id;

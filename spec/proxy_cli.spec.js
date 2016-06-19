@@ -1,6 +1,7 @@
 'use strict';
 
 var startService = require('./service')
+  , proxyConfig = require('./proxy_config.json')
   , request = require('request')
   , assert = require('assert')
   , spawn = require('child_process').spawn;
@@ -95,6 +96,7 @@ function send(port, api, reqBody, callback) {
 function assertGetResult(result, serviceName, name, id) {
   assert.equal(result.statusCode, 200);
   assert.equal(typeof result.headers, 'object');
+  assert.deepEqual(result.service, { name: serviceName, basePath: proxyConfig.services[serviceName].basePath });
   assert.deepEqual(result.request, { method: 'get', path: '/' + name + '/' + id })
   assert.deepEqual(result.body, {
     name: name,

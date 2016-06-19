@@ -83,12 +83,14 @@ the response will be a combination of two responses (both requests are processed
   "res1": {
     "statusCode": 200,
     "headers": { /* response headers for the 1st request */ },
+    "service": { "name": "service1", "basePath": "http://localhost:3001" },
     "request": { "method": "get", "path": "/resource/1" },
     "body": { /* response body 1 */ }
   },
   "res2": {
     "statusCode": 200,
     "headers": { /* response headers for the 2nd request */ },
+    "service": { "name": "service2", "basePath": "http://localhost:3002" },
     "request": { "method": "get", "path": "/resource/2" },
     "body": { /* response body 2 */ }
   }

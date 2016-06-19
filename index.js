@@ -19,8 +19,8 @@ function jsonscriptProxy(options, js) {
   }
 
   js = js || new JSONScript(options.jsonscript || { strict: true });
-  for (var key in options.services)
-    js.addExecutor(key, getExecutor(options.services[key]));
+  for (var name in options.services)
+    js.addExecutor(name, getExecutor(name, options.services[name]));
   evaluator.js = js;
 
   return evaluator;
@@ -51,9 +51,13 @@ function jsonscriptProxy(options, js) {
   }
 
 
-  function getExecutor(service) {
+  function getExecutor(serviceName, service) {
     var processResponse = processResponseFunc(service.processResponse || options.processResponse);
     addExecutorMethods();
+    var serviceInfo = {
+      name: serviceName,
+      basePath: service.basePath
+    };
     return execRouter;
 
     function execRouter(args) {
@@ -66,7 +70,7 @@ function jsonscriptProxy(options, js) {
       return new (options.Promise || Promise)(function (resolve, reject) {
         request[args.method](opts, function (err, resp) {
           if (err) return reject(err);
-          try { resolve(processResponse(resp, args)); }
+          try { resolve(processResponse(resp, args, serviceInfo)); }
           catch(e) { reject(e); }
         });
       });
@@ -110,8 +114,9 @@ function bodyProcessResponse(resp) {
 }
 
 
-function defaultProcessResponse(resp, args) {
+function defaultProcessResponse(resp, args, service) {
   resp = _.pick(resp, 'statusCode', 'headers', 'body');
+  resp.service = service;
   resp.request = args;
   return resp;
 }
