@@ -1,6 +1,6 @@
 {
   "name": "jsonscript-proxy",
-  "version": "0.2.1",
+  "version": "0.5.0",
   "description": "Proxy server for scripted processing of other services using JSONScript",
   "main": "index.js",
   "bin": {
@@ -32,7 +32,7 @@
     "ajv-keywords": "^0.2.0",
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
-    "jsonscript-js": "^0.4.2",
+    "jsonscript-js": "^0.5.0",
     "lodash": "^4.13.1",
     "minimist": "^1.2.0",
     "request": "^2.72.0"
